@@ -131,4 +131,13 @@ public class User {
     public void setCart(Cart cart) {
         this.cart = cart;
     }
+
+    public void setRole(String roleName) {
+        try {
+            this.role = Role.valueOf(roleName);
+        } catch (IllegalArgumentException e) {
+            // Eğer geçersiz bir rol adı girilirse varsayılan olarak USER rolünü ata
+            this.role = Role.USER;
+        }
+    }
 }

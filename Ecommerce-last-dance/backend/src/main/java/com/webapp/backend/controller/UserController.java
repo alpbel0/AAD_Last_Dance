@@ -79,9 +79,19 @@ public class UserController {
         user.setPassword(registerDto.getPassword());
         user.setFirstName(registerDto.getFirstName());
         user.setLastName(registerDto.getLastName());
+        user.setRole(registerDto.getRole()); // Bu satır yoksa, rol bilgisi aktarılmıyor demektir
 
         // Kullanıcıyı kaydet
         User registeredUser = userService.registerUser(user);
+        // Form seçimine göre kullanıcı rolünü ayarlayın
+        if (registerDto.getRole() != null && registerDto.getRole().equals("SELLER")) {
+            user.setRole("SELLER");  // Veya User entity'nizin rolleri nasıl sakladığına bağlı olarak
+        } else {
+            user.setRole("USER");    // Varsayılan rol
+        }
+             // Kullanıcıyı kaydet
+
+        
         
         // Kullanıcıyı UserProfileDto'ya dönüştür
         UserProfileDto userDto = convertToDto(registeredUser);
